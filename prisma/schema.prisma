@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url        = env("DATABASE_URL")        // connection pooling
+  url        = env("DATABASE_URL")        
 }
 
 model User {
@@ -18,13 +18,15 @@ model User {
 }
 
 model PG {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   pgname        String
   address       String
-  facilities    String   // can be comma-separated list or changed to a JSON/Text array later
+  area          String                     
+  facilities    String[]                   
   price         Int
-  availableFor  String   // e.g., 'Boys', 'Girls', 'All'
+  availableFor  String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
   @@map(name: "pgs")
 }

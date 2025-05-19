@@ -70,7 +70,7 @@ export default function AuthModal({
   return (
     <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
       <div className="relative bg-white p-6 rounded-lg w-full max-w-md shadow-lg space-y-6">
-        {/* Close Button */}
+
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"
@@ -78,7 +78,6 @@ export default function AuthModal({
           <IoClose />
         </button>
 
-        {/* Heading with Logo */}
         <div className="flex items-center justify-center gap-2">
           <Image src={puzzleIcon} alt="Logo" width={30} height={30} />
           <h2 className="text-2xl font-bold text-blue-600">
@@ -86,7 +85,6 @@ export default function AuthModal({
           </h2>
         </div>
 
-        {/* Form */}
         <form
           className="space-y-4"
           onSubmit={(e) => {
@@ -125,7 +123,6 @@ export default function AuthModal({
           </button>
         </form>
 
-        {/* Toggle Link */}
         <p className="text-sm text-center">
           {isLogin ? "New here?" : "Already have an account?"}{" "}
           <button
