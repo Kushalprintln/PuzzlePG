@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url        = env("DATABASE_URL")        // connection pooling
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String?
+  email      String   @unique
+  password   String?
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  @@map(name: "users")
+}
+
+model PG {
+  id            String   @id @default(cuid())
+  pgname        String
+  address       String
+  facilities    String   // can be comma-separated list or changed to a JSON/Text array later
+  price         Int
+  availableFor  String   // e.g., 'Boys', 'Girls', 'All'
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  @@map(name: "pgs")
+}
