@@ -1,5 +1,7 @@
 "use client"
 
+import Image from 'next/image'
+
 type PGCardProps = {
   pgname: string
   address: string
@@ -7,7 +9,7 @@ type PGCardProps = {
   price: number
   oldPrice?: number
   facilities: string[]
-  area:string
+  area: string
 }
 
 type BadgeProps = {
@@ -47,29 +49,42 @@ export default function PGCard({
   const genderIcons =
     availableFor === "All" ? (
       <>
-        <img src="/icons/boys.svg" alt="Boys" className="w-[20px] h-[20px]" />
-        <img src="/icons/girls.svg" alt="Girls" className="w-[20px] h-[20px]" />
+        <Image
+          src="/icons/boys.svg"
+          alt="Boys"
+          width={20}
+          height={20}
+        />
+        <Image
+          src="/icons/girls.svg"
+          alt="Girls"
+          width={20}
+          height={20}
+        />
       </>
     ) : (
-      <img
+      <Image
         src={`/icons/${availableFor.toLowerCase()}.svg`}
         alt={availableFor}
-        className="w-[20px] h-[20px]"
+        width={20}
+        height={20}
       />
     )
 
   return (
     <div className="relative w-full flex flex-col md:flex-row justify-between items-start gap-6 p-8 rounded-lg border bg-white shadow-sm hover:shadow-md transition-all">
 
-      <Badge area={area}/>
+      <Badge area={area} />
       <div className="space-y-3 flex-1 w-full">
         <h2 className="text-lg font-bold">{pgname}</h2>
 
         <div className="flex gap-2 text-sm text-gray-500">
-          <img
+          <Image
             src="/icons/location.svg"
             alt="Location"
-            className="w-[20px] h-[20px] mt-1"
+            width={20}
+            height={20}
+            className="mt-1"
           />
           <span>{address}</span>
         </div>

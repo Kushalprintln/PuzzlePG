@@ -13,37 +13,39 @@ type SearchParams = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
-  const page = parseInt(searchParams.page || "1", 10);
+  const resolvedSearchParams = await searchParams;
+  const page = parseInt(resolvedSearchParams.page || "1", 10);
   const take = 10;
   const skip = (page - 1) * take;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filters: any = {};
 
-  if (searchParams.gender) {
-    const genderArray = Array.isArray(searchParams.gender)
-      ? searchParams.gender
-      : [searchParams.gender];
+  if (resolvedSearchParams.gender) {
+    const genderArray = Array.isArray(resolvedSearchParams.gender)
+      ? resolvedSearchParams.gender
+      : [resolvedSearchParams.gender];
 
     filters.availableFor = { in: genderArray };
   }
 
-  if (searchParams.area) {
-    filters.address = { contains: searchParams.area };
+  if (resolvedSearchParams.area) {
+    filters.address = { contains: resolvedSearchParams.area };
   }
 
-  if (searchParams.search) {
+  if (resolvedSearchParams.search) {
     filters.OR = [
-      { pgname: { contains: searchParams.search, mode: "insensitive" } },
-      { address: { contains: searchParams.search, mode: "insensitive" } },
-      { area: { contains: searchParams.search, mode: "insensitive" } },
+      { pgname: { contains: resolvedSearchParams.search, mode: "insensitive" } },
+      { address: { contains: resolvedSearchParams.search, mode: "insensitive" } },
+      { area: { contains: resolvedSearchParams.search, mode: "insensitive" } },
     ];
   }
 
   const orderBy =
-    searchParams.sort === "asc" || searchParams.sort === "desc"
-      ? { price: searchParams.sort as "asc" | "desc" }
+    resolvedSearchParams.sort === "asc" || resolvedSearchParams.sort === "desc"
+      ? { price: resolvedSearchParams.sort as "asc" | "desc" }
       : { createdAt: "desc" as const };
 
   const [pgs, total] = await Promise.all([

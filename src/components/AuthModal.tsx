@@ -51,6 +51,7 @@ export default function AuthModal({
         setIsLogin(true);
       }
     } catch (err) {
+      console.log(err)
       toast.error("Server error. Try again later.");
     } finally {
       setLoading(false);
